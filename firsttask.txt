@@ -1,0 +1,27 @@
+import java.io.*;
+
+public class Main {
+    public static void main(String[] args) {
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("poem.txt"), "Cp1251"));
+            String line = reader.readLine();
+            int cur = 0;
+            while(line != null) {
+                cur++;
+                String text = "";
+                while ( line != null && line.length() > 0 ) {
+                    text += line +"\n";
+                    line = reader.readLine();
+                }
+                OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream("poem" + cur +".txt"), "UTF-8");
+                writer.write(text);
+                writer.flush();
+                line = reader.readLine();
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}
